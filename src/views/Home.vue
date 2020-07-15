@@ -1,5 +1,6 @@
 <template>
   <main>
+    <Navbar />
     <section v-if="currentTime.length">
       <!-- The weather componenet -->
       <Weather />
@@ -25,10 +26,11 @@
 import Quote from '../components/Quote'
 import Weather from '../components/Weather';
 import Loader from '../components/Loader';
+import Navbar from '../components/Navbar.vue'
 
 export default {
   name: 'Home',
-  components : {Quote, Weather, Loader},
+  components : {Quote, Weather, Loader, Navbar},
   data(){
     return {
       currentHour : "",

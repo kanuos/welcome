@@ -12,7 +12,7 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Welcome',
-    component:  Register
+    component: userInfo ? Home : Register 
   },
   {
     path: '/home',
