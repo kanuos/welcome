@@ -5,10 +5,17 @@
     <div class="nav-expand" v-if="navExpand">
       <button class="close-btn" @click="toggleNavbar">&times;</button>
       <ul>
-          <li>Tasks</li>
-          <li>Converter</li>
-          <li>News</li>
-          <li>Weather</li>
+        <li>
+          <router-link to="/">Home</router-link>
+        </li>
+        <li>
+          <router-link to="/tasks">Tasks</router-link>
+        </li>
+        <li>
+          <router-link to="/converter">Converter</router-link>
+        </li>
+        <li>News</li>
+        <li>Weather</li>
       </ul>
     </div>
     </transition>
@@ -74,16 +81,19 @@ export default {
     transform: translateY(30%) translateX(5%);
   }
   li, li > a {
+    display: inline-block;
+    text-decoration: none;
     color: grey;
     font-size: 3.5rem;
+    padding: .25rem;
     text-align: right;
     border-bottom: 1.2px solid transparent;
     transition: all .4s ease;
     cursor: pointer;
   }
   li:hover, li > a:hover {
-    color: white;
-    border-bottom: 1.2px solid white;
+    background-color: white;
+    color: black;
   }
   .close-btn {
     position: absolute;

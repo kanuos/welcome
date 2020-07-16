@@ -1,34 +1,24 @@
 <template>
-<transition name="fade">
     <main>
+        <Navbar />
         <h1>
             My Tasks
         </h1>
-        <form @submit.prevent="handleSubmit">
-            <input v-model="task" type="text" placeholder="Add task here">
-            <select v-model="priority">
-                <option value="1">High</option>
-                <option value="2">Medium</option>
-                <option value="3">Low</option>
-            </select>
-            <button>Add</button>
-        </form>
+        <TaskCE :add="addTodo"/>
         <hr>
         <TodoItem v-for="todo in todos" :todo="todo" :key="parseInt(todo.id)"/>
     </main>
-</transition>
 </template>
 
 <script>
-// import { v4 as uuid } from 'uuid';
+import Navbar from '../components/Navbar.vue'
 import TodoItem from '../components/TodoItem';
+import TaskCE from '../components/TaskCE'
 export default {
     name : "Tasks",
-    components : {TodoItem},
+    components : {TodoItem, Navbar, TaskCE},
     data () {
         return {
-            task : "",
-            priority : "",
             todos : [
                 {
                     id : 1,
@@ -65,8 +55,8 @@ export default {
         handleSubmit(){
             console.log(`TASK : ${this.task} has priority : ${this.priority}`);
         },
-        addTodo(){
-
+        addTodo(todo){
+            console.log("Main : ",todo);
         },
         editTodo(){
 
@@ -77,27 +67,13 @@ export default {
         completeTodo(){
 
         }
+    },
+    created(){
+
     }
 }
 </script>
 
 <style scoepd>
-    main {
-        height: 100vh;
-        width: 100vw;
-        background-image: url('../assets/background.jpg');
-        background-position: center;
-        background-size: cover;
-    }
-    .fade-enter,
-    .fade-leave-to {
-        opacity: 0;
-        transform: scale(0);
-        filter: sepia(100%);
-        transform-origin: center;
-    }
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: all .5s ease-out;
-    }
+
 </style>

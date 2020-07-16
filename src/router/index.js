@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
-import Tasks from '../views/Tasks.vue'
 
 Vue.use(VueRouter)
 
@@ -22,7 +21,12 @@ Vue.use(VueRouter)
   {
     path : '/tasks',
     name : "Tasks",
-    component: userInfo ? Tasks : Register
+    component: userInfo ? ()=> import('../views/Tasks.vue') : Register
+  },
+  {
+    path : '/converter',
+    name : "Converter",
+    component: ()=> import('../views/Converter.vue')
   },
   {
     path: '/about',
