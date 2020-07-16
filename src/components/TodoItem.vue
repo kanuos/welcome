@@ -3,12 +3,12 @@
   <transition name="fade">
       <article v-if="todo">
           <div class="text">
-            <span>{{todo.task}}</span>
+            <span :class="`priority-${todo.priority}`">{{todo.task}}</span>
             <small>{{todo.time | getDate}}</small>
           </div>
           <div class="btns">
-            <button>Delete</button>
-            <button>Edit</button>
+            <button class="delete">Delete</button>
+            <button class="edit">Edit</button>
           </div>
       </article>
   </transition>
@@ -39,10 +39,18 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        word-wrap: break-word;
     }
     .text {
         display: flex;
         flex-direction: column;
+        flex-basis: 80%;
+    }
+    .priority-1 {
+        color: orangered;
+    }
+    .priority-2 {
+        color : teal;
     }
     article:hover {
         border-radius: .25rem;
@@ -56,6 +64,7 @@ export default {
     }
     span {
         font-size: 1.75rem;
+        text-align: left;
         font-weight: bold;
     }
     small {
@@ -69,5 +78,13 @@ export default {
         margin: 0 .25rem;
         padding: .25rem .5rem;
         border-radius: .15rem;
+        cursor: pointer;
+        transition: background-color .4s ease;
+    }
+    .delete:hover {
+        background-color: orangered;
+    }
+    .edit:hover {
+        background-color: teal;
     }
 </style>

@@ -1,16 +1,15 @@
 <template>
     <form @submit.prevent="handleSubmit">
-    <transition name="appear">
-        <h6 :class="error && 'error'" v-if="error.length > 0">{{error}}</h6>
-    </transition>
     <input v-model="task" type="text" placeholder="Add task here">
-    <!-- <select v-model="priority" >
+    <select v-model="priority" >
         <option value="1">High</option>
-        <option selected value="2">Medium</option>
+        <option value="2">Medium</option>
         <option value="3">Low</option>
-    </select> -->
-    <v-select v-model="priority" options="[`High`,`Medium`,`Low`]" />
+    </select>
     <button>Add</button>
+    <transition name="appear">
+        <small :class="error && 'error'" v-if="message.length > 0" v-text="message"/>
+    </transition>
     </form>
 </template>
 
@@ -18,25 +17,25 @@
 import { v4 as uuid } from 'uuid';
 export default {
     name : "TaskCE",
-    props : ['add'],
+    props : ['add',"existingTask","existingPriority" ],
     data(){
         return {
-            task : "",
-            priority : "Medium",
+            task : this.existingTask ? this.existingTask : "",
+            priority : this.existingPriority ? `${this.existingPriority}`:"2",
             message : "",
             error : false
         }
     },
     methods : {
         handleSubmit () {
-            if (this.task.trim().length > 0 && parseInt(this.priority) > 1){
+            if (this.task.trim().length > 0 && parseInt(this.priority) > 0){
                 const newTask = {
                     id : uuid(),
                     task : this.task.trim(),
                     priority : parseInt(this.priority),
                     time : Date.now(),
                     isComplete : false,
-                    isDeleted : false
+                    isDeleted : false,
                 }
                 this.add(newTask);
                 this.task = "";
@@ -56,11 +55,23 @@ export default {
 </script>
 
 <style scoped>
-    h6 {
+    small {
+        margin: 1.5rem 0;
+        display: block;
+        font-size: 2rem;
         text-align: center;
         color: teal;
     }
-    h6.error {
+    .error {
         color: orangered;
     }
+    .appear-enter,.appear-leave-to {
+        opacity: 0;
+        transform: scale(0);
+        transform-origin: center;
+    }
+    .appear-enter-active,.appear-leave-active {
+        transition: all .3s ease-out;
+    }
+
 </style>

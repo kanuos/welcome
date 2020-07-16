@@ -4,9 +4,10 @@
         <h1>
             My Tasks
         </h1>
-        <TaskCE :add="addTodo"/>
-        <hr>
-        <TodoItem v-for="todo in todos" :todo="todo" :key="parseInt(todo.id)"/>
+        <TaskCE :add="addTodo" :complete="completeTodo"/>
+        <div class="todos-container">
+            <TodoItem v-for="todo in todos" :todo="todo" :key="todo.id"/>
+        </div>
     </main>
 </template>
 
@@ -19,44 +20,13 @@ export default {
     components : {TodoItem, Navbar, TaskCE},
     data () {
         return {
-            todos : [
-                {
-                    id : 1,
-                    task : "Clean Room",
-                    time : Date.now(),
-                    priority : 3,
-                    isComplete : false
-                },
-                {
-                    id : 2,
-                    task : "Do the laundry",
-                    time : Date.now(),
-                    priority : 2,
-                    isComplete : false
-                },
-                {
-                    id : 3,
-                    task : "Complete the navbar",
-                    time : Date.now(),
-                    priority : 1,
-                    isComplete : false
-                },
-                {
-                    id : 4,
-                    task : "Complete the home screen",
-                    time : Date.now(),
-                    priority : 3,
-                    isComplete : true
-                },
-            ]
+            todos : []
         }
     },
     methods : {
-        handleSubmit(){
-            console.log(`TASK : ${this.task} has priority : ${this.priority}`);
-        },
         addTodo(todo){
-            console.log("Main : ",todo);
+            this.todos.push(todo);
+            this.updateStorage();
         },
         editTodo(){
 
@@ -64,8 +34,11 @@ export default {
         deleteTodo(){
 
         },
-        completeTodo(){
-
+        completeTodo(id){
+            console.log(id)
+        },
+        updateStorage(){
+            console.log(`Local Storage will be updated`)
         }
     },
     created(){
@@ -75,5 +48,36 @@ export default {
 </script>
 
 <style scoepd>
-
+    h1 {
+        color: white;
+    }
+    .todos-container {
+        max-height: 80vh;
+        width: 90%;
+        max-width: 120rem;
+        overflow: auto;
+        margin: 2rem auto;
+        justify-content: center;
+        padding: 1rem 0;
+        display: grid;
+        grid-template-columns: repeat(autofit, minmax(40rem));
+        grid-template-columns: repeat(auto-fit, 40rem);
+        gap: 1rem;
+    }
+    .todos-container::-webkit-scrollbar {
+        width: .5rem;
+        border-radius: .25rem;
+    }
+    .todos-container::-webkit-scrollbar-track {
+        background: black;
+    }
+    .todos-container::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,.5);
+        cursor: pointer;
+        border-radius: .25rem;
+        transition: all .4s ease;
+    }
+    .todos-container::-webkit-scrollbar-thumb:hover {
+        background: white;
+    }
 </style>
