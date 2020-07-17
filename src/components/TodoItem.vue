@@ -2,13 +2,16 @@
 <div class="task-box">
   <transition name="fade">
       <article v-if="todo">
-          <div class="text">
-            <span :class="`priority-${todo.priority}`">{{todo.task}}</span>
+          <div class="text" @click="complete(todo.id)">
+            <span 
+            :class="`priority-${todo.priority} ${todo.isComplete && 'complete'}`">
+                {{todo.task}}
+            </span>
             <small>{{todo.time | getDate}}</small>
           </div>
           <div class="btns">
-            <button class="delete">Delete</button>
-            <button class="edit">Edit</button>
+            <button @click="deleteTodo(todo.id)" class="delete">Delete</button>
+            <button @click="edit(todo.id)" class="edit">Edit</button>
           </div>
       </article>
   </transition>
@@ -17,7 +20,7 @@
 
 <script>
 export default {
-    props : ["todo"],
+    props : ["todo","edit","deleteTodo", "complete"],
     filters : {
         getDate(date){
             return new Date(date).toDateString();
@@ -86,5 +89,10 @@ export default {
     }
     .edit:hover {
         background-color: teal;
+    }
+    .complete {
+        color: grey !important;
+        font-weight: lighter;
+        text-decoration: line-through;
     }
 </style>

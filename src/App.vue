@@ -22,6 +22,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  overflow: hidden;
 }
 main {
     height: 100vh;
@@ -33,12 +34,10 @@ main {
 }
 .fade-enter,
 .fade-leave-to {
-  opacity: 0;
-  transform: rotate(180deg);
-  transform-origin: center;
+  transform:translateY(100%);
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: all .5s ease;
+  transition: transform .5s ease;
 }
 </style>

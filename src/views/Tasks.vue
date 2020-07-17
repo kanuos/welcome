@@ -4,9 +4,20 @@
         <h1>
             My Tasks
         </h1>
-        <TaskCE :add="addTodo" :complete="completeTodo"/>
+        <TaskCE 
+            :add="addTodo" 
+            :existingTask="existingTask" 
+            :existingPriority="existingPriority" 
+            :key="editCounter"/>
+
         <div class="todos-container">
-            <TodoItem v-for="todo in todos" :todo="todo" :key="todo.id"/>
+            <TodoItem 
+                v-for="todo in sortedList" 
+                :todo="todo" 
+                :edit = "editTodo"
+                :deleteTodo = "deleteTodo"
+                :complete = "completeTodo"
+                :key="todo.id"/>
         </div>
     </main>
 </template>
@@ -20,7 +31,13 @@ export default {
     components : {TodoItem, Navbar, TaskCE},
     data () {
         return {
-            todos : []
+            todos : [],
+            editCounter : 0,
+            existingTask : "",
+            existingPriority : null,
+            showComplete : false,
+            showIncomplete : false,
+            showAll : true,
         }
     },
     methods : {
@@ -28,27 +45,65 @@ export default {
             this.todos.push(todo);
             this.updateStorage();
         },
-        editTodo(){
-
+        editTodo(id){
+            const editTask = this.todos.filter(todo => todo.id === id)[0];
+            if (editTask){
+                const {task, priority} = editTask;
+                this.editCounter++;     // to re-render the TaskCE component
+                this.existingTask = task;
+                this.existingPriority = priority;
+                this.deleteTodo(id);
+            }
         },
-        deleteTodo(){
-
+        deleteTodo(id){
+            this.todos = [...this.todos.filter(todo => todo.id !== id)]
+            this.updateStorage();
         },
         completeTodo(id){
-            console.log(id)
+            this.todos.forEach(todo => {
+                if (todo.id === id){
+                    todo.isComplete = !todo.isComplete;
+                }
+            });
+            this.updateStorage();
         },
         updateStorage(){
-            console.log(`Local Storage will be updated`)
+            const LS_KEY = 'welcome-data';
+            const localStorageContent = JSON.parse(localStorage.getItem(LS_KEY));
+
+            localStorageContent.todos = [...this.todos];
+            
+            localStorage.setItem(LS_KEY, JSON.stringify(localStorageContent));
+        },
+    },
+    computed : {
+        sortedList(){
+            let array = [...this.todos];
+             
+             if (this.showComplete){
+                array = array.filter(todo => todo.isComplete === true)
+             }
+             else if (this.showIncomplete){
+                array.filter(todo => todo.isComplete !== true)
+             }
+
+            return array.sort((a,b) => a.priority - b.priority);
         }
     },
     created(){
+        const LS_KEY = 'welcome-data';
+        const localStorageContent = JSON.parse(localStorage.getItem(LS_KEY));
 
+        this.todos = localStorageContent.todos ? localStorageContent.todos : []
     }
 }
 </script>
 
 <style scoepd>
     h1 {
+        padding-top: 4rem;
+        font-size: 3rem;
+        font-weight: lighter;
         color: white;
     }
     .todos-container {
@@ -79,5 +134,9 @@ export default {
     }
     .todos-container::-webkit-scrollbar-thumb:hover {
         background: white;
+    }
+
+    label {
+        color: red;
     }
 </style>
