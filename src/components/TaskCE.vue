@@ -60,7 +60,7 @@ export default {
         width: 100%;
         max-width: 40rem;
         margin: 1rem auto 0 auto;
-        padding: 1rem;
+        padding: 2rem 1rem 1rem 1rem;
         border-top-left-radius: .25rem;
         border-top-right-radius: .25rem;
     } 

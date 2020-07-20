@@ -15,7 +15,6 @@
           <router-link to="/converter">Converter</router-link>
         </li>
         <li>News</li>
-        <li>Weather</li>
       </ul>
     </div>
     </transition>
