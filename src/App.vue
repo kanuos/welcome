@@ -7,7 +7,20 @@
 </template>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap');
+
+@font-face {
+  font-family: 'Pathway Gothic One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/pathway-gothic-one-v8-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Pathway Gothic One Regular'), local('PathwayGothicOne-Regular'),
+       url('./fonts/pathway-gothic-one-v8-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/pathway-gothic-one-v8-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/pathway-gothic-one-v8-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/pathway-gothic-one-v8-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/pathway-gothic-one-v8-latin-regular.svg#PathwayGothicOne') format('svg'); /* Legacy iOS */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -40,4 +53,6 @@ main {
 .fade-leave-active {
   transition: transform .5s ease;
 }
+
+
 </style>

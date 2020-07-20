@@ -9,7 +9,20 @@
             :existingTask="existingTask" 
             :existingPriority="existingPriority" 
             :key="editCounter"/>
+        <details>
+            <summary>Tools</summary> 
+            <ul>
+                <li class="tool">
+                    <small>Show Tasks</small>
+                    <ViewSelector :view="selectedView"/>
+                </li>
+                <li class="tool">
+                    <small>Can't decide?</small>
+                    <button class="btn-tool" @click="toggleIndecision">Decide!</button>
+                </li>
+            </ul>
 
+        </details>
         <div class="todos-container">
             <TodoItem 
                 v-for="todo in sortedList" 
@@ -19,6 +32,7 @@
                 :complete = "completeTodo"
                 :key="todo.id"/>
         </div>
+    <Indecision v-if="indecision" :close="toggleIndecision" :list="todos" />
     </main>
 </template>
 
@@ -26,9 +40,12 @@
 import Navbar from '../components/Navbar.vue'
 import TodoItem from '../components/TodoItem';
 import TaskCE from '../components/TaskCE'
+import ViewSelector from '../components/ViewSelector'
+import Indecision from '../components/Indecision'
+
 export default {
     name : "Tasks",
-    components : {TodoItem, Navbar, TaskCE},
+    components : {TodoItem, Navbar, TaskCE, ViewSelector, Indecision},
     data () {
         return {
             todos : [],
@@ -38,6 +55,7 @@ export default {
             showComplete : false,
             showIncomplete : false,
             showAll : true,
+            indecision : false
         }
     },
     methods : {
@@ -75,6 +93,28 @@ export default {
             
             localStorage.setItem(LS_KEY, JSON.stringify(localStorageContent));
         },
+        selectedView(view){
+            switch(view){
+                case 'inc': 
+                    this.showIncomplete = true;
+                    this.showComplete = false;
+                    this.showAll = false;
+                    break;
+                case 'com': 
+                    this.showIncomplete = false;
+                    this.showComplete = true;
+                    this.showAll = false;
+                    break;
+                default : 
+                    this.showIncomplete = false;
+                    this.showComplete = false;
+                    this.showAll = true;
+                    break;
+            }
+        },
+        toggleIndecision(){
+            this.indecision = !this.indecision;
+        }
     },
     computed : {
         sortedList(){
@@ -84,7 +124,7 @@ export default {
                 array = array.filter(todo => todo.isComplete === true)
              }
              else if (this.showIncomplete){
-                array.filter(todo => todo.isComplete !== true)
+                 array = array.filter(todo => todo.isComplete === false)
              }
 
             return array.sort((a,b) => a.priority - b.priority);
@@ -135,8 +175,46 @@ export default {
     .todos-container::-webkit-scrollbar-thumb:hover {
         background: white;
     }
-
-    label {
-        color: red;
+    details {
+        width: 100%;
+        max-width: 40rem;
+        margin: auto;
+        background: white;
+        outline: none;
+        padding: 0 1rem;
+    }
+    summary {
+        padding: .5rem 3rem;
+        text-align: left;
+        outline: none;
+        font-size: 1.25rem;
+        text-transform: uppercase;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .tool {
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+    .btn-tool{
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        margin-bottom: 1rem;
+        padding: .25rem 1.25rem;
+        background: black;
+        color: white;
+        border: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: all 0.4s ease;
+    }
+    .btn-tool:hover {
+        background: white;
+        color: black;
+        box-shadow: 0 1px 1rem black;
     }
 </style>

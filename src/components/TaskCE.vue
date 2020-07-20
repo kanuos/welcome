@@ -55,12 +55,38 @@ export default {
 </script>
 
 <style scoped>
+    form{
+        background: white;
+        width: 100%;
+        max-width: 40rem;
+        margin: 1rem auto 0 auto;
+        padding: 1rem;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    } 
+    form > * {
+        padding: .25rem;
+        outline: none;
+    }
+    input {
+        min-width: 23rem;
+    }
+    button{
+        background: black;
+        color: white;
+        min-width: 5rem;
+        border-color: transparent;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.4s ease;
+    }
     small {
-        margin: 1.5rem 0;
+        margin: 1.25rem 0;
         display: block;
         font-size: 2rem;
         text-align: center;
         color: teal;
+        text-transform: uppercase;
     }
     .error {
         color: orangered;

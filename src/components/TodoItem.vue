@@ -69,9 +69,11 @@ export default {
         font-size: 1.75rem;
         text-align: left;
         font-weight: bold;
+        display: inline-block;
+        margin-bottom: .5rem;
     }
     small {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
         align-self: start;
     }
     button {
