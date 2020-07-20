@@ -14,7 +14,11 @@
         <li>
           <router-link to="/converter">Converter</router-link>
         </li>
-        <li>News</li>
+        <li>
+          <router-link to="/news">
+            News
+          </router-link>
+        </li>
       </ul>
     </div>
     </transition>
