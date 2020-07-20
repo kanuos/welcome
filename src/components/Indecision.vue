@@ -2,7 +2,7 @@
     <transition name="appear">
     <div class="container">
         <span id="close" @click="close()">&times;</span>
-        <section v-if="list.length > 0">
+        <section v-if="list.length > completeCount">
             <h3 class="underline">
                 Let the bot decide for you
             </h3>
@@ -88,10 +88,16 @@
             </h3>
         </section>
         <section v-else>
-            You have no tasks left!! 
-            <p>
-                You have completed all {{list.length}}
-            </p>
+            <h3 class="underline">
+                Congratulations!!!  
+            </h3>
+            <h3 class="result">
+                You have completed all 
+                <span>
+                    {{list.length}}
+                </span>
+                tasks.
+            </h3>
         </section>
         </div>
     </transition>
