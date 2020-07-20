@@ -35,6 +35,14 @@
                         {{list.length - completeCount}}
                     </span>
                 </li>
+                <li>
+                    <span class="key">
+                        Completion Percentage
+                    </span>
+                    <span class="value">
+                        {{Math.round(completeCount * 100 / list.length)}}%
+                    </span>
+                </li>
             </ul>
             <form class="radio-form" data-legend="MODE">
                 <div>
@@ -223,7 +231,7 @@ export default {
     }
     li {
         display:flex;
-        width: 50%;
+        width: 60%;
         justify-content: space-between;
         align-items: center;
         margin: auto;

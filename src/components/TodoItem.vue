@@ -71,6 +71,7 @@ export default {
         font-weight: bold;
         display: inline-block;
         margin-bottom: .5rem;
+        cursor: default;
     }
     small {
         font-size: 1.2rem;
