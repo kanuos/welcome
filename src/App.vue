@@ -54,5 +54,37 @@ main {
   transition: transform .5s ease;
 }
 
+.radio {
+  margin: .5rem;
+  padding: .5rem;
+}
+.radio > label {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  padding-left: .5rem;
+}
+.radio > input {
+  position: relative;
+}
+.radio > input::after {
+  content: "";
+  position: absolute;
+  cursor : pointer;
+  top: 0;
+  left: 0;
+  height: 125%;
+  width: 125%;
+  background : grey;
+  border-radius: 50%;
+  transition: all .4s ease;
+}
+.radio >input:hover::after {
+  background: black;
+  opacity : .75;
+}
+.radio >input:checked::after {
+  background: black;
+}
+
 
 </style>

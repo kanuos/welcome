@@ -35,7 +35,7 @@
                 <h5 v-if="errorMessage">
                     {{errorMessage}}
                 </h5>
-                <img src="../assets/loader.gif" v-if="isLoading">
+                <Loader v-if="isLoading" message="Calculating"/>
                 <h3 v-else>
                     {{outputValue}}
                 </h3>
@@ -55,12 +55,13 @@
 
 <script>
 import Navbar from '../components/Navbar.vue';
+import Loader from '../components/Loader'
 import units from '../conversion';
 import Converter from 'unit-converter-pro';
 import axios from 'axios';
 
 export default {
-    components : {Navbar},
+    components : {Navbar, Loader},
     data(){
         return {
             tab : 1,

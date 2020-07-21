@@ -17,7 +17,7 @@
     </section>
     
     <section v-else>
-      <Loader />
+      <Loader message=" "/>
     </section>
   </main>
 </template>

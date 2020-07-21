@@ -45,7 +45,7 @@
                 </li>
             </ul>
             <form class="radio-form" data-legend="MODE">
-                <div>
+                <div class="radio">
                     <input 
                         type="radio" 
                         name="mode" 
@@ -54,7 +54,7 @@
                         id="easy">
                     <label for="easy">Easy First</label>
                 </div>
-                <div>
+                <div class="radio">
                     <input 
                         type="radio" 
                         name="mode" 
@@ -63,7 +63,7 @@
                         id="hard">
                     <label for="hard">Hard First</label>
                 </div>
-                <div>
+                <div class="radio">
                     <input 
                         type="radio" 
                         name="mode" 
@@ -74,10 +74,7 @@
                 </div>
             </form>
             <article v-if="isCalculating">
-                <h6>
-                    Loading
-                </h6>
-                <img src="../assets/loader.gif">
+                <Loader />
             </article>
             <h3 v-show="result" class="result">
                 Task title : "
@@ -104,8 +101,10 @@
 </template>
 
 <script>
+import Loader from './Loader'
 export default {
     name : "Indecision",
+    components : {Loader},
     props : ['list',"close"],
     data(){
         return {

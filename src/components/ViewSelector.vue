@@ -1,18 +1,15 @@
 <template>
   <form>
-    <div>
+    <div class="radio">
         <input type="radio" name="view" id="1" value="all" v-model="value"/>
-        <span></span>
         <label for="1">All Tasks</label>
     </div>
-    <div>
+    <div class="radio">
         <input type="radio" name="view" id="2" value="inc" v-model="value"/>
-        <span></span>
         <label for="2">Incomplete Tasks</label>
     </div>
-    <div>
+    <div class="radio">
         <input type="radio" name="view" id="3" value="com" v-model="value"/>
-        <span></span>
         <label for="3">Completed Tasks</label>
     </div>
   </form>
