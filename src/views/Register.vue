@@ -2,7 +2,7 @@
   <main>
       <form @submit.prevent="handleSubmit">
         <h1>
-            Welcome
+            Salve 
         </h1>
         <transition name="error">
             <span v-if="error.length">{{error}}</span>
@@ -12,22 +12,16 @@
                 v-model="name"
                 id="name" 
                 type="text" 
-                placeholder="Your name" 
+                placeholder="What is your name?" 
                 autocomplete="off"/>
-            <label for="name">Your name</label>
-        </div>
-        <div class="input-group">
-            <input 
-                v-model="location"
-                id="location" 
-                type="text" 
-                placeholder="Your location" 
-                autocomplete="off"/>
-            <label for="location">Your locaiton</label>
+            <label for="name">What is your name?</label>
         </div>
         <button>Submit</button>
         <small class="form-footer">
             Your data will be stored in your browser's storage. This app doesn't collect your data.
+            <br>
+            This app uses your browser's location for weather updates. 
+            Please enable it for uninterrupted service.
         </small>
       </form>
   </main>
@@ -38,7 +32,6 @@ export default {
     data(){
         return {
             error : "",
-            location : "",
             name : "",
         }
     },
@@ -47,7 +40,6 @@ export default {
             if (this.name.trim().length > 0 && this.location.trim().length > 0){
                 const data = {
                     name : this.name.trim(),
-                    location : this.location.trim(),
                 }
                 localStorage.setItem('welcome-data', JSON.stringify(data))
                 this.$router.push("/home");
@@ -55,8 +47,7 @@ export default {
             else{
                 if (this.name.trim().length <= 0)
                     this.error = "Invalid Name";
-                else
-                    this.error = "Invalid Location";
+               
                 setTimeout(()=> {
                     this.error = "";
                 },2000) 
@@ -99,8 +90,10 @@ export default {
         text-transform: uppercase;
         font-weight: 100;
         letter-spacing: -2px;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
         text-shadow: 1px 1px grey;
+        display: flex;
+        flex-direction: column;
     }
     span{
         display: inline-block;
@@ -122,6 +115,9 @@ export default {
         font-size: 1.25rem;
         position: absolute;
         transition: all .3s ease-in;
+    }
+    input::placeholder{
+        font-size: 1.25rem;
     }
     input {
         font-size: 1.5rem;
