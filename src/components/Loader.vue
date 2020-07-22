@@ -1,6 +1,6 @@
 <template>
     <figure>
-        <h4 v-if="message">
+        <h4 v-if="message" :class="message && 'white-bg'">
             {{message}}
         </h4>
         <h4 v-else>
@@ -31,5 +31,8 @@ export default {
         text-transform: uppercase;
         margin-bottom: -3.5rem;
         font-size: 1.5rem;
+    }
+    .white-bg {
+        color: white;
     }
 </style>

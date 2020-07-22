@@ -51,7 +51,7 @@ export default {
         background: white;
         width: 90%;
         max-width: 40rem;
-        margin: 2rem auto;
+        margin: 5rem auto 2rem auto;
         font-size: 1.5rem;
         display: flex;
         flex-direction: column;
