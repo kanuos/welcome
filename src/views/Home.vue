@@ -6,7 +6,7 @@
       <Weather />
       <!-- The welcome message and time -->
       <h1 :key="currentTime">{{currentTime}}</h1>
-      <h4>
+      <h4 class="welcome-msg">
         Good <span>{{message}}</span> 
         <span v-if="user.length">,&nbsp;{{user}}.</span>
       </h4>
@@ -106,9 +106,10 @@ export default {
     font-size: 5.5rem;
     color: white;
   }
-  h4 {
+  h4.welcome-msg {
     font-size: 4rem;
     color: white;
+    text-transform: capitalize;
     font-weight: lighter;
   }
   span {
@@ -146,7 +147,6 @@ export default {
     opacity: 0;
   }
   .cta:hover{
-    transform: scale(1.02) translateY(-2px) translateZ(0);
+    transform: translateY(-2px);
   }
-
 </style>
