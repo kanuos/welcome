@@ -3,10 +3,11 @@
 <div id="weather" class="weather-box" 
     v-if="hasPermission && !isLoading && Object.keys(weather)">
     <Skycon 
+        v-if="hasPermission && !isExpired"
         color = "white"
         size = "90"
         :condition="weather.icon" />
-    <article class="weather-box">
+    <article class="weather-box" v-if="hasPermission && !isExpired">
         <h1 @click="toggleUnits">{{ weather.temperature }}&deg; {{temp_unit}} </h1>
         <p>
             {{weather.summary}}
@@ -64,6 +65,7 @@ export default {
             longitude : null,
             weather : {},
             temp_unit : "F",
+            isExpired : false
         }
     },
     methods : {
@@ -81,6 +83,7 @@ export default {
                 this.weather.high = result.data.daily.data[result.data.daily.data.length - 1].temperatureHigh;
                 this.weather.timeOfFetch = Date.now();
                 this.hasPermission = true;
+                this.isExpired = false;
             }
 
             // store the weather info in LS
@@ -124,31 +127,41 @@ export default {
             this.weather.feelsLike = this.convertTemperature(this.weather.feelsLike);
             this.weather.temperature = this.convertTemperature(this.weather.temperature)
             this.temp_unit =  this.temp_unit === "F" ? "C" : "F";
+        },
+        checkForExpiry(){
+            const lsWeather = JSON.parse(localStorage.getItem('welcome-data'));
+            if (lsWeather && lsWeather.weather){
+            // check if weather info is more than 1hr old
+            const previousFetchTime = lsWeather.weather.timeOfFetch;
+
+                if (Date.now() - previousFetchTime > 1000*60*60){
+                    this.isExpired = true;
+                    if (this.latitude && this.longitude)
+                        this.fetchWeather(this.latitude,this.longitude);
+                    else 
+                        this.getCoordinates();
+                }
+                else {
+                    this.weather = lsWeather.weather
+                    this.hasPermission = true;
+                    this.isLoading = false;
+                }
+            }
+            else {
+                // if not get geolocation and get weather
+                this.getCoordinates();
+            }
         }
     },
 
     created(){
         // check if weather in localstorage
-        const lsWeather = JSON.parse(localStorage.getItem('welcome-data'));
-        if (lsWeather && lsWeather.weather){
-            // check if weather info is more than 1hr old
-            const previousFetchTime = lsWeather.weather.timeOfFetch;
-
-            if (Date.now() - previousFetchTime > 1000*60*60){
-                this.getCoordinates();
-            }
-            else {
-                this.weather = lsWeather.weather
-                this.hasPermission = true;
-                this.isLoading = false;
-            }
-        }
-        else {
-            // if not get geolocation and get weather
-            this.getCoordinates();
-        }
+        console.log("Checking for weather in LS => API")
+        this.checkForExpiry();
+        setInterval(()=> {
+            this.checkForExpiry();
+        }, 1000*60*30)
     }
-
 }
 </script>
 

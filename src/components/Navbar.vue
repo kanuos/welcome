@@ -6,7 +6,7 @@
       <button class="close-btn" @click="toggleNavbar">&times;</button>
       <ul>
         <li>
-          <router-link to="/">Home</router-link>
+          <router-link to="/" :exact="true">Home</router-link>
         </li>
         <li>
           <router-link to="/tasks">Tasks</router-link>
@@ -94,9 +94,9 @@ export default {
     transition: all .4s ease;
     cursor: pointer;
   }
-  li:hover, li > a:hover {
-    background-color: white;
-    color: black;
+  li:hover, li > a:hover,
+  .router-link-active {
+    color: white;
   }
   .close-btn {
     position: absolute;
