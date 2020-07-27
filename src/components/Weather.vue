@@ -9,6 +9,9 @@
         :condition="weather.icon" />
     <article class="weather-box" v-if="hasPermission && !isExpired">
         <h1 @click="toggleUnits">{{ weather.temperature }}&deg; {{temp_unit}} </h1>
+        <p v-if="weather.timezone">
+            {{weather.timeZone}}
+        </p>
         <p>
             {{weather.summary}}
         </p>
@@ -63,6 +66,7 @@ export default {
             isLoading : true,
             latitude : null,
             longitude : null,
+            timeZone: "",
             weather : {},
             temp_unit : "F",
             isExpired : false
@@ -74,6 +78,7 @@ export default {
             const API_KEY= `f25a03061accf012c304571dd55115fa`;
             const result = await axios(`${proxy}https://api.darksky.net/forecast/${API_KEY}/${latitude},${longitude}`);
             if (result.status === 200){
+                console.log(result.data)
                 this.weather.feelsLike = result.data.currently.apparentTemperature;
                 this.weather.temperature = result.data.currently.temperature;
                 this.weather.summary = result.data.currently.summary;
@@ -81,6 +86,7 @@ export default {
                 this.weather.icon = result.data.currently.icon.toLowerCase().replace(" ","-"); 
                 this.weather.low = result.data.daily.data[result.data.daily.data.length - 1].temperatureHigh;
                 this.weather.high = result.data.daily.data[result.data.daily.data.length - 1].temperatureHigh;
+                this.weather.timezone = result.data.timezone;
                 this.weather.timeOfFetch = Date.now();
                 this.hasPermission = true;
                 this.isExpired = false;
