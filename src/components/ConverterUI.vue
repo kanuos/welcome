@@ -50,7 +50,7 @@
 			<button>Convert</button>
 		</div>
 		<div id="result">
-			<h1 v-if="showResult && !isLoading">
+			<h1 v-if="inputValue.length && outputValue.length && showResult">
                 {{inputValue}} {{inputUnit}} = {{outputValue}} {{outputUnit}}
 			</h1>
             <Loader v-else-if="isLoading"/>
@@ -78,7 +78,7 @@ export default {
         }
     },
     components : {Loader},
-    props : ['input', 'output','unit','submit', 'currency'],
+	props : ['input', 'output','unit','submit', 'currency'],
     methods : {
         convertUnits(){
             if (this.inputValue){
@@ -116,8 +116,8 @@ export default {
                     }
                     setTimeout(()=> {
                         this.isLoading = false;
-                        this.showResult = true;
-                    }, 1600)
+						this.showResult = true;
+					}, 1600);
                 }
             }
             else {
@@ -128,7 +128,15 @@ export default {
             }
         },
         
-    }
+	},
+	updated(){
+		if (this.showResult && !this.isLoading){
+			setTimeout(()=> {
+				this.showResult = false
+				this.inputValue = ""
+			}, 2000)
+		}
+	}
 }
 </script>
 

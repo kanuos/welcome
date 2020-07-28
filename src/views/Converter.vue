@@ -33,21 +33,24 @@ export default {
         return {
             tab : 1,
             tabText : "Length",
+            tabChanged : false,
             units,
             currency : {},
         }
     },
 methods : {
     tabSelector(tab){
-        this.tab = tab;
-        switch(tab){
-            case 1 : this.tabText = "Length"; break;
-            case 2 : this.tabText = "Area"; break;
-            case 3 : this.tabText = "Mass"; break;
-            case 4 : this.tabText = "Temperature"; break;
-            case 5 : this.tabText = "Time"; break;
-            case 6 : this.tabText = "Currency"; break;
-            default: this.tabText = "Length"; break;
+        if (this.tab !== tab){
+            this.tab = tab;
+            switch(tab){
+                case 1 : this.tabText = "Length"; break;
+                case 2 : this.tabText = "Area"; break;
+                case 3 : this.tabText = "Mass"; break;
+                case 4 : this.tabText = "Temperature"; break;
+                case 5 : this.tabText = "Time"; break;
+                case 6 : this.tabText = "Currency"; break;
+                default: this.tabText = "Length"; break;
+            }
         }
     },
         currencyConverter(from,to,amount){
