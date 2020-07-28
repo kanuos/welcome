@@ -139,7 +139,7 @@ export default {
 }
 </script>
 
-<style scoepd>
+<style>
     h1 {
         padding-top: 4rem;
         font-size: 3rem;
@@ -147,10 +147,10 @@ export default {
         color: white;
     }
     .todos-container {
-        max-height: 80vh;
+        max-height: 70vh;
         width: 90%;
         max-width: 120rem;
-        overflow: auto;
+        overflow: scroll;
         margin: 2rem auto;
         justify-content: center;
         padding: 1rem 0;

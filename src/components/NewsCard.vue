@@ -14,7 +14,7 @@
 				<span class="author">{{news.author}}</span>
 			</div>
 			<h1 class="title">
-				{{newsTitle}}
+				{{news.title | newsTitle}}
 			</h1>
 			<p class="summary">
 				{{news.content}}
@@ -40,12 +40,6 @@ export default {
     name: "NewsCard",
     props : ['news'],
     computed : {
-        newsTitle(){
-            if (this.news && this.news.title){
-                return this.news.title.split("-")[0]
-            }
-            return ""
-        },
         formattedDate(){
             if (this.news && this.news.publishedAt){
                 const day = new Date(this.news.publishedAt).toDateString();
@@ -53,7 +47,12 @@ export default {
             }
             return ""
         }
-    },
+	},
+	filters : {
+		newsTitle(title){
+			return title.split("-")[0]
+        }
+	}
 }
 </script>
 

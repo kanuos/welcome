@@ -1,14 +1,13 @@
 <template>
   <div>
     <main>
-      <Navbar />
-      <div id="news-l">
-        <p class="text">
-          Total articles : {{articles.length}}
-        </p>
-        <NewsCard :news="articles[0]"/>
-        <NewsCard :news="articles[3]"/>
-        <NewsCard :news="articles[5]"/>
+      <div class="news-container">
+        <Navbar />
+        <div id="news">
+          <NewsCard :news="articles[0]"/>
+          <NewsCard :news="articles[3]"/>
+          <NewsCard :news="articles[5]"/>
+        </div>
       </div>
     </main>
   </div>
@@ -300,5 +299,38 @@ export default {
   p.text {
     font-size: 3rem;
     color: white;
+  }
+  .news-container {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  #news {
+    margin: 5rem 2rem 2rem 2rem;
+    height: 90vh;
+    width: 90vw;
+    max-width: 120rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    gap: 1rem;
+    overflow-y: auto;
+  }
+  #news::-webkit-scrollbar {
+      width: .5rem;
+      border-radius: .25rem;
+  }
+  #news::-webkit-scrollbar-track {
+      background: black;
+  }
+  #news::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,.5);
+      cursor: pointer;
+      border-radius: .25rem;
+      transition: all .4s ease;
+  }
+  #news::-webkit-scrollbar-thumb:hover {
+      background: white;
   }
 </style>
