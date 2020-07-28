@@ -17,7 +17,7 @@
 				{{news.title | newsTitle}}
 			</h1>
 			<p class="summary">
-				{{news.content}}
+				{{news.content | limitWords}}
 			</p>
 			<div class="link-box">				
 				<a :href="news.url" 
@@ -51,7 +51,14 @@ export default {
 	filters : {
 		newsTitle(title){
 			return title.split("-")[0]
-        }
+		},
+		limitWords(sentence){
+			console.log(sentence.length)
+			if (sentence.length > 160){
+				return `${sentence.slice(0,160)}...`
+			}	
+			return sentence
+		}
 	}
 }
 </script>
@@ -132,11 +139,12 @@ figcaption {
 	flex-basis: 25%;
 }
 .author {
-	text-transform: uppercase;
+	text-transform: capitalize;
+	padding-left: 1.25rem;
 }
 .title {
 	grid-row: 2/2;
-	font-size: 2rem;
+	font-size: 1.75rem;
 	text-transform: capitalize;
     text-align: left;
     word-wrap: break-word;
@@ -146,6 +154,8 @@ p.summary {
 	margin: 1rem 0;
 	color: lightgrey;
 	transition: color .4s ease;
+	padding: 0;
+	text-align: left;
 }
 p.summary:hover {
 	color: grey;
