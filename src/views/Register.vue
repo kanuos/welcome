@@ -37,7 +37,7 @@ export default {
     },
     methods : {
         handleSubmit(){
-            if (this.name.trim().length > 0 && this.location.trim().length > 0){
+            if (this.name.trim().length > 0){
                 const data = {
                     name : this.name.trim(),
                 }
