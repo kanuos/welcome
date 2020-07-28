@@ -15,7 +15,7 @@
 				<span class="author">{{news.author}}</span>
 			</div>
 			<h1 class="title">
-				{{news.title | newsTitle}}
+				{{news.title}}
 			</h1>
 			<p class="summary">
 				{{limitWords}}
@@ -61,11 +61,6 @@ export default {
 				return this.news.urlToImage;
 			return `https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg`
 		}
-	},
-	filters : {
-		newsTitle(title){
-			return title.split("-")[0]
-		},
 	}
 }
 </script>
@@ -75,12 +70,12 @@ export default {
     background: white;
 	height: 40rem;
 	width: 25rem;
-	margin: 4rem auto;
+	margin: 1.5rem auto;
     border: none;
 	border-radius: .75rem;
 	box-shadow: 0 1px .5rem grey;
 	display: grid;
-	grid-template-rows: 20rem 20rem;
+	grid-template-rows: 18rem 22rem;
 	overflow: hidden;
 	cursor: default;
 	backface-visibility: hidden;
@@ -151,23 +146,23 @@ figcaption {
 }
 .title {
 	grid-row: 2/2;
-	font-size: 1.75rem;
+	font-size: 1.5rem;
 	text-transform: capitalize;
-    text-align: left;
     word-wrap: break-word;
 }
 p.summary {
+	grid-row: 3/3;
 	font-size: 1.25rem;
 	margin: 1rem 0;
 	color: lightgrey;
 	transition: color .4s ease;
 	padding: 0;
-	text-align: left;
 }
 p.summary:hover {
 	color: grey;
 }
 .link-box {
+	grid-row: 4/4;
 	display: flex;
 	justify-content: flex-start;
 	-ms-align-items: center;
