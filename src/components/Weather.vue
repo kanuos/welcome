@@ -1,5 +1,5 @@
 <template>
-
+<transition name="appear">
 <div id="weather" class="weather-box" 
     v-if="hasPermission && !isLoading && Object.keys(weather)">
     <Skycon 
@@ -9,8 +9,8 @@
         :condition="weather.icon" />
     <article class="weather-box" v-if="hasPermission && !isExpired">
         <h1 @click="toggleUnits">{{ weather.temperature }}&deg; {{temp_unit}} </h1>
-        <p v-if="weather.timezone">
-            {{weather.timeZone}}
+        <p class="city" v-if="weather.timezone">
+            {{weather.timezone}}
         </p>
         <p>
             {{weather.summary}}
@@ -46,6 +46,7 @@
    <div class="weather-box" v-else-if="!hasPermission && isLoading">
       <Loader message="locating"/>
   </div>
+</transition>
 </template>
 
 <script>
@@ -182,6 +183,7 @@ export default {
     }
     .weather-box > h1 {
         font-size: 4rem;
+        padding-top: 1rem;
         font-weight: lighter;
         width: max-content;
         cursor: pointer;
@@ -214,5 +216,17 @@ export default {
     .weather-box >h1:hover ~ .welcome-list{
         opacity: 1;
         transform: translateY(0);
+    }
+    .city {
+        font-weight: lighter;
+        color: grey;
+        font-size: 1.5rem;
+    }
+    .appear-enter, .appear-leave-to {
+        transform: scale(0);
+        opacity: 0;
+    }
+    .appear-enter-active, .appear-leave-active {
+        transition: all .5s ease-in-out;
     }
 </style>
