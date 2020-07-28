@@ -3,7 +3,9 @@
     <Navbar />
     <section v-if="currentTime.length">
       <!-- The weather componenet -->
-      <Weather />
+      <transition name="appear">
+        <Weather />
+      </transition>
       <!-- The welcome message and time -->
       <h1 :key="currentTime">{{currentTime}}</h1>
       <h4 class="welcome-msg">
@@ -148,5 +150,13 @@ export default {
   }
   .cta:hover{
     transform: translateY(-2px);
+  }
+  .appear-enter, .appear-leave-to {
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: bottom;
+  }
+  .appear-enter-active, .appear-leave-active {
+      transition: all .5s ease-in-out;
   }
 </style>

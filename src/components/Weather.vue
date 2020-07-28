@@ -1,5 +1,4 @@
 <template>
-<transition name="appear">
 <div id="weather" class="weather-box" 
     v-if="hasPermission && !isLoading && Object.keys(weather)">
     <Skycon 
@@ -46,7 +45,6 @@
    <div class="weather-box" v-else-if="!hasPermission && isLoading">
       <Loader message="locating"/>
   </div>
-</transition>
 </template>
 
 <script>
@@ -221,12 +219,5 @@ export default {
         font-weight: lighter;
         color: grey;
         font-size: 1.5rem;
-    }
-    .appear-enter, .appear-leave-to {
-        transform: scale(0);
-        opacity: 0;
-    }
-    .appear-enter-active, .appear-leave-active {
-        transition: all .5s ease-in-out;
     }
 </style>

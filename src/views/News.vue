@@ -4,9 +4,7 @@
       <div class="news-container">
         <Navbar />
         <div id="news">
-          <NewsCard :news="articles[0]"/>
-          <NewsCard :news="articles[3]"/>
-          <NewsCard :news="articles[5]"/>
+          <NewsCard v-for="(news,index) in articles" :news="news" :key="index"/>
         </div>
       </div>
     </main>

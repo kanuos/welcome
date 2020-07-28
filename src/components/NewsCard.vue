@@ -2,7 +2,8 @@
   <article class="news" v-if="Object.keys(news)">
 		<header>
 			<figure>
-				<img class="news-image" :src="news.urlToImage">
+				<img class="news-image" 
+				:src="imageLink">
 				<figcaption>
 					{{news.source.name}}
 				</figcaption>
@@ -17,7 +18,7 @@
 				{{news.title | newsTitle}}
 			</h1>
 			<p class="summary">
-				{{news.content | limitWords}}
+				{{limitWords}}
 			</p>
 			<div class="link-box">				
 				<a :href="news.url" 
@@ -38,7 +39,7 @@
 <script>
 export default {
     name: "NewsCard",
-    props : ['news'],
+	props : ['news'],
     computed : {
         formattedDate(){
             if (this.news && this.news.publishedAt){
@@ -46,19 +47,25 @@ export default {
                 return day;
             }
             return ""
-        }
+		},
+		limitWords(){
+			if (this.news.content){
+				if (this.news.content.length > 150)
+					return this.news.content.slice(0, 150) + " ..."
+				return this.news.content;
+			}
+			return "No Content Found"
+		},
+		imageLink(){
+			if (this.news.urlToImage)
+				return this.news.urlToImage;
+			return `https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg`
+		}
 	},
 	filters : {
 		newsTitle(title){
 			return title.split("-")[0]
 		},
-		limitWords(sentence){
-			console.log(sentence.length)
-			if (sentence.length > 160){
-				return `${sentence.slice(0,160)}...`
-			}	
-			return sentence
-		}
 	}
 }
 </script>
