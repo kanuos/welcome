@@ -1,12 +1,12 @@
 <template>
 <div id="weather" class="weather-box" 
-    v-if="hasPermission && !isLoading && Object.keys(weather)">
+    v-if="hasPermission && Object.keys(weather)">
     <Skycon 
-        v-if="!isLoading"
+        v-if="!isLoading && weather.icon"
         color = "white"
         size = "90"
         :condition="weather.icon" />
-    <article class="weather-box" v-if="hasPermission && !isExpired && !isLoading">
+    <article class="weather-box" v-if="hasPermission && !isExpired && !isLoading && Object.keys(weather).length > 0">
         <h1 @click="toggleUnits">{{ weather.temperature }}&deg; {{temp_unit}} </h1>
         <p class="city" v-if="weather.timezone">
             {{weather.timezone}}
@@ -42,7 +42,7 @@
         </ul>
     </article>
   </div>
-   <div class="weather-box" v-else-if="!hasPermission && isLoading">
+   <div class="weather-box" v-else-if="isLoading">
       <Loader message="locating"/>
   </div>
 </template>
@@ -68,7 +68,7 @@ export default {
             timeZone: "",
             weather : {},
             temp_unit : "F",
-            isExpired : false
+            isExpired : false,
         }
     },
     methods : {
@@ -77,7 +77,6 @@ export default {
             const API_KEY= `f25a03061accf012c304571dd55115fa`;
             const result = await axios(`${proxy}https://api.darksky.net/forecast/${API_KEY}/${latitude},${longitude}`);
             if (result.status === 200){
-                console.log(result.data)
                 this.weather.feelsLike = result.data.currently.apparentTemperature;
                 this.weather.temperature = result.data.currently.temperature;
                 this.weather.summary = result.data.currently.summary;
@@ -87,8 +86,7 @@ export default {
                 this.weather.high = result.data.daily.data[result.data.daily.data.length - 1].temperatureHigh;
                 this.weather.timezone = result.data.timezone;
                 this.weather.timeOfFetch = Date.now();
-                this.hasPermission = true;
-                this.isExpired = false;
+                this.$router.go();
             }
 
             // store the weather info in LS
@@ -102,18 +100,18 @@ export default {
             this.$getLocation()
             .then(coordinates => {
                 const {lat,lng} = coordinates;
-                this.hasPermission = true;
                 this.latitude = lat;
                 this.longitude = lng;
                 this.fetchWeather(this.latitude,this.longitude);
             })
             .then(() => {
+                this.hasPermission = true;
                 this.isLoading = false;
+                this.isExpired = false;
             })
-            .catch(err =>{
+            .catch(() =>{
                 this.isLoading = false;
                 this.hasPermission = false;
-                console.log(err)
             })
         },
         convertTemperature(value){
@@ -166,7 +164,7 @@ export default {
         setInterval(()=> {
             this.checkForExpiry();
         }, 1000*60*30)
-    }
+    },
 }
 </script>
 

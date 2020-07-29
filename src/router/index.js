@@ -16,7 +16,9 @@ Vue.use(VueRouter)
   {
     path: '/home',
     name: 'Home',
-    component:  userInfo ? Home : Register
+    get component(){
+      return userInfo ? Home : Register
+    } 
   },
   {
     path : '/tasks',

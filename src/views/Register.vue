@@ -2,7 +2,7 @@
   <main>
       <form @submit.prevent="handleSubmit">
         <h1>
-            Salve 
+            Welcome 
         </h1>
         <transition name="error">
             <span v-if="error.length">{{error}}</span>
@@ -38,11 +38,10 @@ export default {
     methods : {
         handleSubmit(){
             if (this.name.trim().length > 0){
-                const data = {
-                    name : this.name.trim(),
-                }
-                localStorage.setItem('welcome-data', JSON.stringify(data))
-                this.$router.push("/home");
+                const ls = localStorage.getItem('welcome-data') || {}
+                ls.name = this.name.trim()
+                localStorage.setItem('welcome-data', JSON.stringify(ls))
+                this.$router.go();
             }
             else{
                 if (this.name.trim().length <= 0)

@@ -53,8 +53,7 @@ export default {
         return "AM"
       }
       return "PM";
-    },
-
+    }
   },
   created(){
     const storedData = JSON.parse(localStorage.getItem('welcome-data'));
