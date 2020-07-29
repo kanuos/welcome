@@ -19,7 +19,7 @@
         <div id="news" v-else-if="isLoaded">
           <NewsCard v-for="(news,index) in articles" :news="news" :key="index"/>
         </div>
-        <div else>
+        <div v-if="!isLoaded">
             <Loader/>
         </div>
       </div>
@@ -32,9 +32,9 @@ import Navbar from '../components/Navbar';
 import NewsCard from '../components/NewsCard'
 import Loader from '../components/Loader'
 import axios from 'axios'
-const API_KEY = `ddf78e74832f4abb9087eae5bf4aca94`
-const CORS = `https://cors-anywhere.herokuapp.com/`
-const DEFAULT_URL = `${CORS}https://newsapi.org/v2/top-headlines?category=general&apiKey=${API_KEY}`
+const API_KEY = `84452c0ae12326697fd2c11a8d76371a`
+// const CORS = `https://cors-anywhere.herokuapp.com/`
+const DEFAULT_URL = `https://gnews.io/api/v3/top-news?token=${API_KEY}`
 
 export default {
   name: "News",
@@ -60,13 +60,13 @@ export default {
       }
     },
     async requestNews(keyword){
-      const url = keyword ? `${CORS}https://newsapi.org/v2/everything?qInTitle=${keyword}&apiKey=${API_KEY}` : DEFAULT_URL;
+      const kwd = keyword && keyword.trim().split(" ").join("+")
+      console.log(kwd)
+      const url = kwd ? `https://gnews.io/api/v3/search?q=${kwd}&token=${API_KEY}` : DEFAULT_URL;
       this.searchCount++;
-      sessionStorage.setItem('welcome-count', {
-        searchCount : this.searchCount
-      })
+      sessionStorage.setItem('welcome-count', this.searchCount)
 
-      if (this.searchCount < 100){
+      if (this.searchCount < 50){
         const response = await axios(url);
         if (response.status === 200){
           const {data} = response;
@@ -84,7 +84,7 @@ export default {
         }
         else {
           this.isError = true;
-          this.errorMessage = "Something went wrong."
+          this.errorMessage = "News Server error."
         }
       }
       else {
@@ -96,14 +96,14 @@ export default {
   created(){
     // check session storage
     const {articles} = JSON.parse(localStorage.getItem('welcome-data'));
-    const searchCount = sessionStorage.getItem('welcome-count')
+    const searchCount = parseInt(sessionStorage.getItem('welcome-count'))
     if (articles){
       // get current date
       const timeNow = new Date(Date.now()).toDateString();
       if (timeNow === articles.articleFetchTime){
         this.articles = articles;
         this.isLoaded = true;
-        this.searchCount = searchCount >0 ? searchCount : 0
+        this.searchCount = searchCount ? searchCount : 0
         this.isError = false;
       }
       else {

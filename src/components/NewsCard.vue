@@ -57,8 +57,8 @@ export default {
 			return "No Content Found"
 		},
 		imageLink(){
-			if (this.news.urlToImage)
-				return this.news.urlToImage;
+			if (this.news.image)
+				return this.news.image;
 			return `https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg`
 		}
 	}
