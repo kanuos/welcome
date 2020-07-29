@@ -2,11 +2,11 @@
 <div id="weather" class="weather-box" 
     v-if="hasPermission && !isLoading && Object.keys(weather)">
     <Skycon 
-        v-if="hasPermission && !isExpired"
+        v-if="!isLoading"
         color = "white"
         size = "90"
         :condition="weather.icon" />
-    <article class="weather-box" v-if="hasPermission && !isExpired">
+    <article class="weather-box" v-if="hasPermission && !isExpired && !isLoading">
         <h1 @click="toggleUnits">{{ weather.temperature }}&deg; {{temp_unit}} </h1>
         <p class="city" v-if="weather.timezone">
             {{weather.timezone}}
