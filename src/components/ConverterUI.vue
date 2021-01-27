@@ -134,7 +134,7 @@ export default {
 			setTimeout(()=> {
 				this.showResult = false
 				this.inputValue = ""
-			}, 2000)
+			}, 3500)
 		}
 	}
 }
@@ -143,13 +143,13 @@ export default {
 <style scoped>
 form#converter {
 	background-color: white;
-	width: 80%;
+	width: 75%;
 	max-width: 45rem;
-    min-height: 50rem;;
+    min-height: 45rem;;
 	height: max-content;
 	box-shadow: 0 1px .5rem grey;
 	margin: 3rem auto;
-	padding: 1.5rem;
+	padding: 1.5rem 2rem;
 	border-radius: .5rem;
 }
 
@@ -193,14 +193,15 @@ form#converter {
 }
 .input-group > label {
 	position: absolute;
-	top: 70%;
+	top: 40%;
 	color: transparent;
 	transition: all .4s ease;
+	transform-origin: bottom;
 }
 .input-group > input:valid ~ label,
 .input-group > input:focus ~ label {
 	color: black;
-	top: 30%;
+	top: 40%;
 }
 .input-group > input:focus{
 	border-color: black;
@@ -211,7 +212,7 @@ form#converter {
 }
 input:focus ~ h4,
 select:focus ~ h4{
-	transform: scale(1.2) translateY(-1rem);
+	transform: scale(1.1) translateY(-1rem);
 	color: black;
     font-weight: bolder;
 }
@@ -222,7 +223,7 @@ select:focus ~ h4 > span.highlight{
 .input-group > button {
 	display: block;
 	width: max-content;
-	margin: 2rem auto;
+	margin: 1.5rem auto;
 	padding: .5rem 1.75rem;
 	text-transform: uppercase;
 	color: white;
@@ -239,6 +240,10 @@ select:focus ~ h4 > span.highlight{
     color: orangered;
 }
 #result > h1 {
+	background-image: linear-gradient(orangered, red, maroon);
+	font-size: 1.75rem;
+	background-clip: text;
+	color: transparent;
 	text-align: center;
 }
 

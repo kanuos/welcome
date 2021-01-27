@@ -150,7 +150,7 @@ export default {
         max-height: 70vh;
         width: 90%;
         max-width: 120rem;
-        overflow: scroll;
+        overflow-y: scroll;
         margin: 2rem auto;
         justify-content: center;
         padding: 1rem 0;

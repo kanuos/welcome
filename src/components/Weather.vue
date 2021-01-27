@@ -159,7 +159,6 @@ export default {
 
     created(){
         // check if weather in localstorage
-        console.log("Checking for weather in LS => API")
         this.checkForExpiry();
         setInterval(()=> {
             this.checkForExpiry();

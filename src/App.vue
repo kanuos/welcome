@@ -28,7 +28,7 @@
   font-family: 'Pathway Gothic One', sans-serif;
 }
 html {
-  font-size: 62.5%;
+  font-size: 75%;
   scroll-behavior: smooth;
 }
 #app {
@@ -40,7 +40,7 @@ html {
 main {
     height: 100vh;
     width: 100vw;
-    background-image: linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.85)),
+    background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
                         url('./assets/background.jpg');
     background-position: center;
     background-size: cover;

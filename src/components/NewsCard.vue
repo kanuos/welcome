@@ -49,10 +49,10 @@ export default {
             return ""
 		},
 		limitWords(){
-			if (this.news.content){
-				if (this.news.content.length > 150)
-					return this.news.content.slice(0, 150) + " ..."
-				return this.news.content;
+			if (this.news.description){
+				if (this.news.description.length > 150)
+					return this.news.description.slice(0, 150) + " ..."
+				return this.news.description;
 			}
 			return "No Content Found"
 		},
@@ -68,7 +68,7 @@ export default {
 <style scoped>
 .news {
     background: white;
-	height: 40rem;
+	min-height: 40rem;
 	width: 25rem;
 	margin: 1.5rem auto;
     border: none;
@@ -145,6 +145,8 @@ figcaption {
 	padding-left: 1.25rem;
 }
 .title {
+	color: maroon;
+	font-weight: bold;
 	grid-row: 2/2;
 	font-size: 1.5rem;
 	text-transform: capitalize;
@@ -154,7 +156,7 @@ p.summary {
 	grid-row: 3/3;
 	font-size: 1.25rem;
 	margin: 1rem 0;
-	color: lightgrey;
+	color: gray;
 	transition: color .4s ease;
 	padding: 0;
 }

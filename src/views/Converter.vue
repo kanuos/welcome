@@ -131,7 +131,7 @@ methods : {
     }
    .active {
         color: white;
-        border-top: 1px solid white;
+        border-top: 2.5px solid white;
     }
 
     

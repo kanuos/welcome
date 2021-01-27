@@ -90,12 +90,12 @@ export default {
 
 <style scoped>
   main{
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     position: fixed;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to right bottom, rgba(0,0,0,.8), rgba(0,0,0,.8)),url(../assets/landing.jpg);
+    background-image: linear-gradient(to right bottom, rgba(0,0,0,.6), rgba(0,0,0,.6)),url(../assets/landing.jpg);
     background-position: center;
     background-size: cover;
     display: flex;
@@ -104,11 +104,11 @@ export default {
     align-items: center;
   }
   h1 {
-    font-size: 5.5rem;
+    font-size: 4.5rem;
     color: white;
   }
   h4.welcome-msg {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: white;
     text-transform: capitalize;
     font-weight: lighter;

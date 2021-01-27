@@ -61,7 +61,6 @@ export default {
     },
     async requestNews(keyword){
       const kwd = keyword && keyword.trim().split(" ").join("+")
-      console.log(kwd)
       const url = kwd ? `https://gnews.io/api/v3/search?q=${kwd}&token=${API_KEY}` : DEFAULT_URL;
       this.searchCount++;
       sessionStorage.setItem('welcome-count', this.searchCount)
@@ -71,7 +70,6 @@ export default {
         if (response.status === 200){
           const {data} = response;
           const {articles} = data 
-          console.log(articles)
           if (articles){
             const session = JSON.parse(localStorage.getItem('welcome-data'))
             session.articles = articles;
